@@ -4,8 +4,8 @@ from googleapiclient.discovery import build
 
 
 
-my_api_key = "AIzaSyBT_xGuMVLKPAIoslqM4QZ9pWrIiMNzkTY"
-my_cse_id = "162d6586b735146f8"
+my_api_key = "YOUR GOOGLE CUSTOM SEARCH API KEY"
+my_cse_id = "YOUR SEARCH ENGINE ID"
 
 
 def google_search(search_term, api_key, cse_id, **kwargs):
