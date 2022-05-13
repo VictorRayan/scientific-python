@@ -6,6 +6,7 @@ import os   #Importa biblioteca de sistema operacional para setar uma variável 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
+import json #Importa biblioteca para manipular estrutura de dados Json
 
 
 
@@ -68,13 +69,29 @@ def GoogleSearch(driver, term):
 	search_field.send_keys(term)
 	search_field.send_keys(Keys.ENTER)
 	results_google = driver.find_element_by_id('result-stats').text
-	print(term+" "+results_google)
+	return (term+" "+results_google)
 
 
 #BUSCA DOS DADOS DO DATAFRAME DE MATERIAIS E TERMOS NO GOOGLE
 driver = LoadBrowser()
-for mat in lista_de_materiais:
-  for word in lista_de_termos:
-    gathered_data['material'].append(mat)
-    gathered_data['search_word'].append(word)
-    gathered_data['search_result'].append(GoogleSearch(driver, mat+" "+word))
+
+try:
+  for mat in lista_de_materiais:
+    for word in lista_de_termos:
+      gathered_data['material'].append(mat)
+      gathered_data['search_word'].append(word)
+      gathered_data['search_result'].append(GoogleSearch(driver, mat+" "+word))
+except: 
+    print('hello world')
+
+
+'''
+file_json = open('gathered_data.json', 'w')
+file_json.write(json.dumps(gathered_data))
+file_json.close()
+gathered_df = pd.read_json('gathered_data.json')
+gathered_df.to_csv('gathered_data.csv')
+'''
+df_from_json = pd.DataFrame.from_dict(gathered_data, orient='index')
+df_from_json = df.transpose()
+df_from_json.to_csv('gathered_data.csv')
