@@ -85,13 +85,15 @@ except:
     print('hello world')
 
 
-'''
-file_json = open('gathered_data.json', 'w')
+
+file_json = open('data/gathered_data.json', 'w')
 file_json.write(json.dumps(gathered_data))
 file_json.close()
 gathered_df = pd.read_json('gathered_data.json')
 gathered_df.to_csv('gathered_data.csv')
+
 '''
 df_from_json = pd.DataFrame.from_dict(gathered_data, orient='index')
 df_from_json = df.transpose()
 df_from_json.to_csv('gathered_data.csv')
+'''
